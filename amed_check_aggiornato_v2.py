@@ -1,3 +1,6 @@
+# Aggiungo il caricamento documento libri opzionale, se l'utente seleziona "Libri scolastici"
+
+updated_script = """
 import streamlit as st
 import fitz  # PyMuPDF
 import re
@@ -86,7 +89,7 @@ if st.button("✅ Valuta pratica"):
         else:
             # Estrai importo
             testo_totale = testo_ricevuta if ricevuta else testo_fattura
-            pattern = re.compile(r"\b([0-9]+[\.,][0-9]{2})\b")
+            pattern = re.compile(r"\\b([0-9]+[\\.,][0-9]{2})\\b")
             importi_trovati = [float(normalizza(m.group(1))) for m in pattern.finditer(testo_totale) if float(normalizza(m.group(1))) > 5.0]
 
             if importi_trovati:
@@ -101,3 +104,12 @@ if st.button("✅ Valuta pratica"):
             else:
                 st.warning("🟡 Da integrare")
                 st.write("Non è stato rilevato alcun importo nel documento.")
+"""
+
+# Salva il file aggiornato
+path_v4 = "/mnt/data/amed_check_v4_documento_libri.py"
+with open(path_v4, "w", encoding="utf-8") as f:
+    f.write(updated_script)
+
+path_v4
+
